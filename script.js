@@ -295,39 +295,114 @@ const codeSnippets = [
 let currentCodeIndex = 0;
 const dynamicCodeElement = document.getElementById('dynamicCode');
 const languageBadge = document.getElementById('languageBadge');
+let typingTimeout;
+let isTyping = false;
+
+// Extract text from HTML element
+function getTextContent(element) {
+    let text = '';
+    element.childNodes.forEach(node => {
+        if (node.nodeType === 3) { // Text node
+            text += node.textContent;
+        } else if (node.nodeType === 1) { // Element node
+            text += getTextContent(node);
+        }
+    });
+    return text;
+}
+
+// Type character by character
+function typeText(lineElement, targetText, charIndex, callback) {
+    if (charIndex < targetText.length) {
+        const currentText = targetText.substring(0, charIndex + 1);
+        lineElement.textContent = currentText;
+        
+        // Add blinking cursor
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        cursor.textContent = '|';
+        lineElement.appendChild(cursor);
+        
+        typingTimeout = setTimeout(() => typeText(lineElement, targetText, charIndex + 1, callback), 50);
+    } else {
+        // Remove cursor and restore HTML formatting
+        if (callback) callback();
+    }
+}
 
 function updateCodeSnippet() {
-    if (!dynamicCodeElement || !languageBadge) return;
+    if (!dynamicCodeElement || !languageBadge || isTyping) return;
     
-    // Fade out
-    dynamicCodeElement.style.opacity = '0';
-    languageBadge.style.opacity = '0';
+    isTyping = true;
     
-    setTimeout(() => {
-        // Update code and language badge
-        const snippet = codeSnippets[currentCodeIndex];
-        dynamicCodeElement.innerHTML = snippet.html;
-        languageBadge.textContent = snippet.language;
-        
-        // Fade in
-        dynamicCodeElement.style.opacity = '1';
-        languageBadge.style.opacity = '1';
-        
-        // Move to next snippet
-        currentCodeIndex = (currentCodeIndex + 1) % codeSnippets.length;
-    }, 500);
+    // Clear any existing timeout
+    if (typingTimeout) clearTimeout(typingTimeout);
+    
+    // Get current snippet
+    const snippet = codeSnippets[currentCodeIndex];
+    
+    // Clear code content immediately
+    dynamicCodeElement.innerHTML = '';
+    dynamicCodeElement.style.opacity = '1';
+    
+    // Update language badge
+    languageBadge.textContent = snippet.language;
+    languageBadge.style.opacity = '1';
+    
+    // Parse HTML into lines
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(snippet.html, 'text/html');
+    const lines = doc.body.querySelectorAll('.code-line');
+    
+    let lineIndex = 0;
+    
+    function typeNextLine() {
+        if (lineIndex < lines.length) {
+            const originalLine = lines[lineIndex];
+            const lineText = getTextContent(originalLine);
+            
+            // Create new line element
+            const newLine = document.createElement('div');
+            newLine.className = 'code-line';
+            newLine.style.color = originalLine.style.color || '#fff';
+            dynamicCodeElement.appendChild(newLine);
+            
+            // Type the line character by character
+            typeText(newLine, lineText, 0, () => {
+                // After typing completes, restore original HTML formatting
+                newLine.innerHTML = originalLine.innerHTML;
+                lineIndex++;
+                setTimeout(typeNextLine, 100);
+            });
+        } else {
+            // Typing complete for this language
+            isTyping = false;
+            
+            // Move to next snippet
+            currentCodeIndex = (currentCodeIndex + 1) % codeSnippets.length;
+            
+            // Wait 2 seconds before starting next language
+            setTimeout(() => {
+                updateCodeSnippet();
+            }, 2000);
+        }
+    }
+    
+    typeNextLine();
 }
 
 // Initialize code rotation
 if (dynamicCodeElement && languageBadge) {
     // Add transition styles
-    dynamicCodeElement.style.transition = 'opacity 0.5s ease';
     languageBadge.style.transition = 'opacity 0.3s ease';
+    dynamicCodeElement.style.transition = 'opacity 0.5s ease';
     
-    // Start rotation after initial load animation
-    setTimeout(() => {
-        setInterval(updateCodeSnippet, 5000); // Change every 5 seconds
-    }, 4000); // Wait 4 seconds before starting rotation
+    // Clear any default content
+    dynamicCodeElement.innerHTML = '';
+    languageBadge.textContent = '';
+    
+    // Start typing immediately on page load
+    updateCodeSnippet();
 }
 
 // Parallax effect for shapes
