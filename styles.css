@@ -943,3 +943,367 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* ===============================================
+   Services Section Styles
+   =============================================== */
+
+.services {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.services-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.services-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.services-subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.service-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Color Themes - Matching Lattice.com */
+.card-blue::before {
+    background: linear-gradient(90deg, #6366F1, #4F46E5);
+}
+
+.card-blue {
+    background: linear-gradient(135deg, rgba(238, 242, 255, 0.5) 0%, rgba(224, 231, 255, 0.5) 50%, rgba(199, 210, 254, 0.5) 100%);
+}
+
+.card-blue:hover {
+    border-color: #6366F1;
+    background: linear-gradient(135deg, rgba(238, 242, 255, 0.6) 0%, rgba(224, 231, 255, 0.6) 50%, rgba(199, 210, 254, 0.6) 100%);
+}
+
+.card-orange::before {
+    background: linear-gradient(90deg, #F97316, #EA580C);
+}
+
+.card-orange {
+    background: linear-gradient(135deg, rgba(255, 247, 237, 0.5) 0%, rgba(254, 237, 213, 0.5) 50%, rgba(253, 186, 116, 0.5) 100%);
+}
+
+.card-orange:hover {
+    border-color: #F97316;
+    background: linear-gradient(135deg, rgba(255, 247, 237, 0.6) 0%, rgba(254, 237, 213, 0.6) 50%, rgba(253, 186, 116, 0.6) 100%);
+}
+
+.card-purple::before {
+    background: linear-gradient(90deg, #A855F7, #9333EA);
+}
+
+.card-purple {
+    background: linear-gradient(135deg, rgba(250, 245, 255, 0.5) 0%, rgba(243, 232, 255, 0.5) 50%, rgba(233, 213, 255, 0.5) 100%);
+}
+
+.card-purple:hover {
+    border-color: #A855F7;
+    background: linear-gradient(135deg, rgba(250, 245, 255, 0.6) 0%, rgba(243, 232, 255, 0.6) 50%, rgba(233, 213, 255, 0.6) 100%);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.card-icon .icon-plus {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.card-blue .card-icon {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+}
+
+.card-orange .card-icon {
+    background: linear-gradient(135deg, #F97316, #EA580C);
+}
+
+.card-purple .card-icon {
+    background: linear-gradient(135deg, #A855F7, #9333EA);
+}
+
+.card-icon:hover {
+    transform: rotate(45deg);
+}
+
+.card-content {
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.features-list {
+    margin-bottom: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #4a4a4a;
+    transition: all 0.5s ease;
+    opacity: 0.6;
+    transform: translateX(-10px);
+}
+
+.feature-item.active {
+    opacity: 1;
+    transform: translateX(0);
+    font-weight: 600;
+}
+
+.feature-item.active span:last-child {
+    color: #2a2a2a;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.card-blue .checkmark {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+}
+
+.card-orange .checkmark {
+    background: linear-gradient(135deg, #F97316, #EA580C);
+}
+
+.card-purple .checkmark {
+    background: linear-gradient(135deg, #A855F7, #9333EA);
+}
+
+.feature-item:hover .checkmark {
+    transform: scale(1.1);
+}
+
+.card-description {
+    padding: 16px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-description p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.card-footer {
+    margin-top: auto;
+}
+
+.card-link {
+    color: #666;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-blue .card-link {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.card-blue .card-link:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.card-orange .card-link {
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.card-orange .card-link:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #F97316, #EA580C);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+.card-purple .card-link {
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.card-purple .card-link:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #A855F7, #9333EA);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+}
+
+/* Services CTA */
+.services-cta {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.cta-text {
+    font-size: 1.25rem;
+    color: #4a4a4a;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, #2B3990, #1e2873);
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(43, 57, 144, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(43, 57, 144, 0.4);
+    background: linear-gradient(135deg, #1e2873, #2B3990);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .services {
+        padding: 60px 0;
+    }
+    
+    .services-title {
+        font-size: 2.5rem;
+    }
+    
+    .service-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+    
+    .service-card {
+        padding: 30px 20px;
+    }
+    
+    .services-cta {
+        padding: 40px 30px;
+    }
+    
+    .cta-text {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-title {
+        font-size: 2rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+    }
+    
+    .service-card {
+        padding: 25px 15px;
+    }
+}
