@@ -991,7 +991,7 @@ body {
     padding: 32px 24px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     border: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     min-height: 400px;
@@ -1006,15 +1006,17 @@ body {
     left: 0;
     width: 100%;
     height: 4px;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
 }
 
-/* Card Color Themes - Matching Lattice.com */
+
+
+/* Card Color Themes - Matching Original Design */
 .card-green::before {
     background: linear-gradient(90deg, #10B981, #059669);
 }
@@ -1069,38 +1071,106 @@ body {
 }
 
 .card-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #fff;
-    transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    animation: pulse-effect 2s ease-in-out infinite;
 }
 
-.card-icon .icon-plus {
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
+/* Card specific icon colors */
 .card-green .card-icon {
-    background: linear-gradient(135deg, #10B981, #059669);
+    background: #10B981;
 }
 
 .card-blue .card-icon {
-    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    background: #6366F1;
 }
 
 .card-orange .card-icon {
-    background: linear-gradient(135deg, #F97316, #EA580C);
+    background: #F97316;
 }
 
-.card-icon:hover {
+/* Pulsing animation - Lattice style */
+@keyframes pulse-effect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Icon plus structure */
+.icon-plus {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Horizontal bar of plus */
+.plus-horizontal {
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Vertical bar of plus */
+.plus-vertical {
+    position: absolute;
+    width: 2px;
+    height: 16px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Arrowhead pseudo-elements */
+.plus-horizontal::before,
+.plus-horizontal::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.plus-horizontal::before {
+    transform-origin: right center;
+}
+
+.plus-horizontal::after {
+    transform-origin: right center;
+}
+
+/* Hover transformation: Plus to Arrow */
+.service-card:hover .plus-vertical {
+    height: 0;
+}
+
+.service-card:hover .plus-horizontal::before {
+    width: 6px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+.service-card:hover .plus-horizontal::after {
+    width: 6px;
     transform: rotate(45deg);
+    transform-origin: right center;
 }
 
 .card-content {
@@ -1108,29 +1178,48 @@ body {
     flex: 1;
 }
 
+/* Features list container with viewport - Auto Slider */
 .features-list {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
     margin-bottom: 20px;
+    padding: 15px 8px;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.features-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    animation: vertical-slide 12s linear infinite;
+    padding: 12px 0;
+}
+
+.service-card:hover .features-list ul {
+    animation-play-state: paused;
 }
 
 .feature-item {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
+    padding: 10px 8px;
     font-size: 0.95rem;
     color: #4a4a4a;
-    transition: all 0.5s ease;
-    opacity: 0.6;
-    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    min-height: 48px;
+    line-height: 1.5;
 }
 
-.feature-item.active {
-    opacity: 1;
-    transform: translateX(0);
-    font-weight: 600;
-}
-
-.feature-item.active span:last-child {
-    color: #2a2a2a;
+@keyframes vertical-slide {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-396px);
+    }
 }
 
 .checkmark {
@@ -1145,6 +1234,7 @@ body {
     font-weight: 600;
     color: #fff;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .card-green .checkmark {
@@ -1161,6 +1251,10 @@ body {
 
 .feature-item:hover .checkmark {
     transform: scale(1.1);
+}
+
+.feature-item span:last-child {
+    flex: 1;
 }
 
 .card-description {
