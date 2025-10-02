@@ -4,8 +4,146 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         loader.classList.add('hidden');
         document.body.style.overflow = 'auto';
+        initParticles();
     }, 2000);
 });
+
+// ========== GLASSMORPHISM HEADER EFFECTS ==========
+
+// Particle Animation System
+let particleCanvas, particleCtx, particles = [];
+
+function initParticles() {
+    particleCanvas = document.getElementById('particleCanvas');
+    if (!particleCanvas) return;
+    
+    particleCtx = particleCanvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        particleCanvas.width = particleCanvas.offsetWidth;
+        particleCanvas.height = particleCanvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Create particles
+    const particleCount = 30;
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * particleCanvas.width,
+            y: Math.random() * particleCanvas.height,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            opacity: Math.random() * 0.5 + 0.2
+        });
+    }
+    
+    animateParticles();
+}
+
+function animateParticles() {
+    if (!particleCtx) return;
+    
+    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    
+    particles.forEach((particle, index) => {
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > particleCanvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > particleCanvas.height) particle.vy *= -1;
+        
+        // Draw particle
+        particleCtx.beginPath();
+        particleCtx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        particleCtx.fillStyle = `rgba(43, 57, 144, ${particle.opacity})`;
+        particleCtx.fill();
+        
+        // Connect particles with lines
+        particles.forEach((otherParticle, otherIndex) => {
+            if (index !== otherIndex) {
+                const dx = particle.x - otherParticle.x;
+                const dy = particle.y - otherParticle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    particleCtx.beginPath();
+                    particleCtx.strokeStyle = `rgba(43, 57, 144, ${0.1 * (1 - distance / 100)})`;
+                    particleCtx.lineWidth = 0.5;
+                    particleCtx.moveTo(particle.x, particle.y);
+                    particleCtx.lineTo(otherParticle.x, otherParticle.y);
+                    particleCtx.stroke();
+                }
+            }
+        });
+    });
+    
+    requestAnimationFrame(animateParticles);
+}
+
+// Magnetic Hover Effect for Nav Items
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(link => {
+    link.addEventListener('mousemove', (e) => {
+        const rect = link.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+        
+        const moveX = deltaX * 8;
+        const moveY = deltaY * 8;
+        
+        link.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+    
+    link.addEventListener('mouseleave', () => {
+        link.style.transform = 'translate(0, 0)';
+    });
+});
+
+// Active State Indicator Animation
+const activeIndicator = document.getElementById('activeIndicator');
+const navMenu = document.getElementById('navMenu');
+
+function updateActiveIndicator() {
+    const activeLink = document.querySelector('.nav-link.active');
+    if (activeLink && activeIndicator) {
+        const linkRect = activeLink.getBoundingClientRect();
+        const menuRect = navMenu.getBoundingClientRect();
+        
+        const left = linkRect.left - menuRect.left;
+        const width = linkRect.width;
+        
+        activeIndicator.style.width = `${width}px`;
+        activeIndicator.style.left = `${left}px`;
+    }
+}
+
+// Update indicator on page load
+setTimeout(() => {
+    updateActiveIndicator();
+}, 2500);
+
+// Update indicator when clicking nav links
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        updateActiveIndicator();
+    });
+});
+
+// Update indicator on window resize
+window.addEventListener('resize', updateActiveIndicator);
 
 // Testimonial Slider - Tech Stack
 const testimonials = [
@@ -60,6 +198,137 @@ setInterval(() => {
 // Add smooth transition to testimonial text
 testimonialName.style.transition = 'opacity 0.3s ease';
 testimonialRole.style.transition = 'opacity 0.3s ease';
+
+// ========== DYNAMIC CODE ANIMATION ==========
+// Different code snippets for rotation showcasing different technologies
+const codeSnippets = [
+    {
+        language: 'JavaScript',
+        html: `
+            <div class="code-line"><span class="comment">// 💛 JavaScript - Modern ES6+</span></div>
+            <div class="code-line"><span class="keyword">const</span> <span class="variable">innovate</span> <span class="function">= () =&gt; {</span></div>
+            <div class="code-line indent"><span class="keyword">return</span> <span class="string">'excellence'</span><span class="function">;</span></div>
+            <div class="code-line"><span class="function">}</span></div>
+            <div class="code-line"></div>
+            <div class="code-line"><span class="keyword">class</span> <span class="class-name">LogicLayer</span> <span class="function">{</span></div>
+            <div class="code-line indent"><span class="function">build</span><span class="paren">()</span> <span class="function">{</span></div>
+            <div class="code-line indent2"><span class="comment">// Creating magic ✨</span></div>
+            <div class="code-line indent"><span class="function">}</span></div>
+            <div class="code-line"><span class="function">}</span></div>
+        `
+    },
+    {
+        language: 'Python',
+        html: `
+            <div class="code-line"><span class="comment"># 🐍 Python - AI & Automation</span></div>
+            <div class="code-line"><span class="keyword">class</span> <span class="class-name">LogicLayerAI</span><span class="function">:</span></div>
+            <div class="code-line indent"><span class="keyword">def</span> <span class="function">__init__</span><span class="paren">(self)</span><span class="function">:</span></div>
+            <div class="code-line indent2"><span class="variable">self.power</span> <span class="function">=</span> <span class="string">"AI"</span></div>
+            <div class="code-line"></div>
+            <div class="code-line indent"><span class="keyword">def</span> <span class="function">automate</span><span class="paren">(self)</span><span class="function">:</span></div>
+            <div class="code-line indent2"><span class="comment"># Smart automation 🤖</span></div>
+            <div class="code-line indent2"><span class="keyword">return</span> <span class="string">"Success"</span></div>
+            <div class="code-line"></div>
+            <div class="code-line"><span class="variable">ai</span> <span class="function">=</span> <span class="class-name">LogicLayerAI</span><span class="paren">()</span></div>
+        `
+    },
+    {
+        language: 'React',
+        html: `
+            <div class="code-line"><span class="comment">// ⚛️ React - Modern UI Components</span></div>
+            <div class="code-line"><span class="keyword">const</span> <span class="class-name">App</span> <span class="function">= () =&gt; {</span></div>
+            <div class="code-line indent"><span class="keyword">const</span> <span class="paren">[</span><span class="variable">state</span><span class="paren">,</span> <span class="variable">setState</span><span class="paren">]</span> <span class="function">=</span></div>
+            <div class="code-line indent2"><span class="function">useState</span><span class="paren">(</span><span class="string">'amazing'</span><span class="paren">)</span><span class="function">;</span></div>
+            <div class="code-line"></div>
+            <div class="code-line indent"><span class="keyword">return</span> <span class="paren">(</span></div>
+            <div class="code-line indent2"><span class="function">&lt;</span><span class="class-name">LogicLayer</span> <span class="variable">power</span><span class="function">={</span><span class="variable">state</span><span class="function">}</span> <span class="function">/&gt;</span></div>
+            <div class="code-line indent"><span class="paren">)</span><span class="function">;</span></div>
+            <div class="code-line"><span class="function">}</span></div>
+        `
+    },
+    {
+        language: 'Node.js',
+        html: `
+            <div class="code-line"><span class="comment">// 🟢 Node.js - Backend APIs</span></div>
+            <div class="code-line"><span class="keyword">const</span> <span class="variable">express</span> <span class="function">=</span> <span class="function">require</span><span class="paren">(</span><span class="string">'express'</span><span class="paren">)</span><span class="function">;</span></div>
+            <div class="code-line"><span class="keyword">const</span> <span class="variable">app</span> <span class="function">=</span> <span class="function">express</span><span class="paren">()</span><span class="function">;</span></div>
+            <div class="code-line"></div>
+            <div class="code-line"><span class="variable">app</span><span class="function">.</span><span class="function">get</span><span class="paren">(</span><span class="string">'/api'</span><span class="paren">,</span> <span class="paren">(</span><span class="variable">req, res</span><span class="paren">)</span> <span class="function">=&gt; {</span></div>
+            <div class="code-line indent"><span class="variable">res</span><span class="function">.</span><span class="function">json</span><span class="paren">({</span></div>
+            <div class="code-line indent2"><span class="variable">status</span><span class="function">:</span> <span class="string">'powerful'</span> <span class="comment">// 🚀</span></div>
+            <div class="code-line indent"><span class="paren">})</span><span class="function">;</span></div>
+            <div class="code-line"><span class="function">})</span><span class="function">;</span></div>
+        `
+    },
+    {
+        language: 'TypeScript',
+        html: `
+            <div class="code-line"><span class="comment">// 📘 TypeScript - Type-Safe Development</span></div>
+            <div class="code-line"><span class="keyword">interface</span> <span class="class-name">Solution</span> <span class="function">{</span></div>
+            <div class="code-line indent"><span class="variable">name</span><span class="function">:</span> <span class="keyword">string</span><span class="function">;</span></div>
+            <div class="code-line indent"><span class="variable">power</span><span class="function">:</span> <span class="keyword">number</span><span class="function">;</span></div>
+            <div class="code-line"><span class="function">}</span></div>
+            <div class="code-line"></div>
+            <div class="code-line"><span class="keyword">const</span> <span class="variable">create</span><span class="function">:</span> <span class="class-name">Solution</span> <span class="function">= {</span></div>
+            <div class="code-line indent"><span class="variable">name</span><span class="function">:</span> <span class="string">'LogicLayer'</span><span class="function">,</span></div>
+            <div class="code-line indent"><span class="variable">power</span><span class="function">:</span> <span class="string">9999</span> <span class="comment">// 💪</span></div>
+            <div class="code-line"><span class="function">}</span><span class="function">;</span></div>
+        `
+    },
+    {
+        language: 'SQL',
+        html: `
+            <div class="code-line"><span class="comment">-- 🗄️ SQL - Database Management</span></div>
+            <div class="code-line"><span class="keyword">SELECT</span> <span class="variable">solution_name</span><span class="function">,</span></div>
+            <div class="code-line indent"><span class="variable">client_satisfaction</span></div>
+            <div class="code-line"><span class="keyword">FROM</span> <span class="class-name">logiclayer_projects</span></div>
+            <div class="code-line"><span class="keyword">WHERE</span> <span class="variable">quality</span> <span class="function">=</span> <span class="string">'exceptional'</span></div>
+            <div class="code-line indent"><span class="keyword">AND</span> <span class="variable">innovation</span> <span class="function">&gt;</span> <span class="string">95</span></div>
+            <div class="code-line"><span class="keyword">ORDER BY</span> <span class="variable">impact</span> <span class="keyword">DESC</span></div>
+            <div class="code-line"><span class="keyword">LIMIT</span> <span class="string">100</span><span class="function">;</span></div>
+            <div class="code-line"></div>
+            <div class="code-line"><span class="comment">-- Excellence delivered ✨</span></div>
+        `
+    }
+];
+
+let currentCodeIndex = 0;
+const dynamicCodeElement = document.getElementById('dynamicCode');
+const languageBadge = document.getElementById('languageBadge');
+
+function updateCodeSnippet() {
+    if (!dynamicCodeElement || !languageBadge) return;
+    
+    // Fade out
+    dynamicCodeElement.style.opacity = '0';
+    languageBadge.style.opacity = '0';
+    
+    setTimeout(() => {
+        // Update code and language badge
+        const snippet = codeSnippets[currentCodeIndex];
+        dynamicCodeElement.innerHTML = snippet.html;
+        languageBadge.textContent = snippet.language;
+        
+        // Fade in
+        dynamicCodeElement.style.opacity = '1';
+        languageBadge.style.opacity = '1';
+        
+        // Move to next snippet
+        currentCodeIndex = (currentCodeIndex + 1) % codeSnippets.length;
+    }, 500);
+}
+
+// Initialize code rotation
+if (dynamicCodeElement && languageBadge) {
+    // Add transition styles
+    dynamicCodeElement.style.transition = 'opacity 0.5s ease';
+    languageBadge.style.transition = 'opacity 0.3s ease';
+    
+    // Start rotation after initial load animation
+    setTimeout(() => {
+        setInterval(updateCodeSnippet, 5000); // Change every 5 seconds
+    }, 4000); // Wait 4 seconds before starting rotation
+}
 
 // Parallax effect for shapes
 document.addEventListener('mousemove', (e) => {

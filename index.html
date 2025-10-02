@@ -18,23 +18,25 @@
 
     <!-- Navigation -->
     <nav class="navbar">
+        <canvas class="particle-canvas" id="particleCanvas"></canvas>
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon"></div>
                 <span>LOGICLAYER LABS</span>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#product">Product</a></li>
-                <li><a href="#solutions">Solutions</a></li>
-                <li><a href="#company">Company</a></li>
-                <li><a href="#resources">Resources</a></li>
-                <li><a href="#pricing">Pricing</a></li>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#product" class="nav-link active">Product</a></li>
+                <li><a href="#solutions" class="nav-link">Solutions</a></li>
+                <li><a href="#company" class="nav-link">Company</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
             </ul>
             <div class="nav-buttons">
                 <button class="btn-secondary">Contact</button>
                 <button class="btn-primary">Login</button>
             </div>
         </div>
+        <div class="active-indicator" id="activeIndicator"></div>
     </nav>
 
     <!-- Hero Section -->
@@ -73,9 +75,10 @@
                                     <span class="dot-yellow"></span>
                                     <span class="dot-green"></span>
                                 </div>
+                                <div class="language-badge" id="languageBadge">JavaScript</div>
                             </div>
-                            <div class="code-content">
-                                <div class="code-line"><span class="keyword">const</span> <span class="variable">innovate</span> = <span class="function">() => {</span></div>
+                            <div class="code-content" id="dynamicCode">
+                                <div class="code-line"><span class="keyword">const</span> <span class="variable">innovate</span> <span class="function">= () =&gt; {</span></div>
                                 <div class="code-line indent"><span class="keyword">return</span> <span class="string">'excellence'</span><span class="function">;</span></div>
                                 <div class="code-line"><span class="function">}</span></div>
                                 <div class="code-line"></div>
