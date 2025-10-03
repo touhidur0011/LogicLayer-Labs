@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogicLayer Labs - Software Development Excellence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="responsive.css">
@@ -28,7 +29,7 @@
             </div>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#product" class="nav-link active">Product</a></li>
-                <li><a href="#solutions" class="nav-link">Solutions</a></li>
+                <li><a href="#services" class="nav-link">Solutions</a></li>
                 <li><a href="#company" class="nav-link">Company</a></li>
                 <li><a href="#resources" class="nav-link">Resources</a></li>
                 <li><a href="#pricing" class="nav-link">Pricing</a></li>
@@ -37,8 +38,28 @@
                 <button class="btn-secondary">Contact</button>
                 <button class="btn-primary">Login</button>
             </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </div>
         <div class="active-indicator" id="activeIndicator"></div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li><a href="#product">Product</a></li>
+                <li><a href="#services">Solutions</a></li>
+                <li><a href="#company">Company</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div class="mobile-nav-buttons">
+                <button class="btn-secondary">Contact</button>
+                <button class="btn-primary">Login</button>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -131,7 +152,7 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services">
+    <section class="services" id="services">
         <div class="services-container">
             <!-- Main Headline -->
             <div class="services-header">
@@ -375,10 +396,257 @@
         </div>
     </section>
 
+    <!-- Seamless Integrations Section -->
+    <div class="integrations-wrapper" id="resources">
+        <section class="integrations-section">
+            
+            <div class="center-content">
+                <h1>Seamless integrations with your entire tech stack</h1>
+                <a href="#" class="cta-button">See all integrations</a>
+            </div>
+
+        <div class="logo-grid">
+            <!-- ROW 1: 12 boxes (logos at position 4 and 8) -->
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-python"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-microsoft"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+
+            <!-- ROW 2: 12 boxes (logos at position 1 and 10) -->
+            <div class="logo-cell"><i class="fa-brands fa-react"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-google"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+
+            <!-- ROW 3: 12 boxes (logo at 3, CENTER TEXT in middle, logo at 12) -->
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-angular"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-github"></i></div>
+
+            <!-- ROW 4: 12 boxes (button placeholder at 6-7, logo at 11) -->
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-slack"></i></div>
+            <div class="logo-cell empty"></div>
+
+            <!-- ROW 5: 12 boxes (logos at position 2, 4, 9) -->
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-figma"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-docker"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-vuejs"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+
+            <!-- ROW 6: 12 boxes (logos at position 6 and 11) -->
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-node-js"></i></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell empty"></div>
+            <div class="logo-cell"><i class="fa-brands fa-git-alt"></i></div>
+            <div class="logo-cell empty"></div>
+        </div>
+
+    </section>
+    </div> <!-- End integrations-wrapper -->
+
     <!-- Footer Section -->
     <div id="footer-placeholder"></div>
 
     <script src="script.js"></script>
     <script src="footer.js"></script>
+    
+    <!-- Integrations Section Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ========== LATTICE-STYLE BLUR & EXPAND ANIMATION ==========
+            const section = document.querySelector('.integrations-section');
+            const logoGrid = document.querySelector('.logo-grid');
+            const centerContent = document.querySelector('.integrations-section .center-content');
+            
+            // Enhanced Intersection Observer for smooth trigger
+            const observerOptions = {
+                threshold: 0.2,  // Trigger when 20% of section is visible
+                rootMargin: '0px 0px -15% 0px'  // Start animation slightly before center
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Trigger blur-to-clear animation on grid
+                        setTimeout(() => {
+                            logoGrid.classList.add('is-visible');
+                        }, 100);
+                        
+                        // Trigger center content fade-in after grid animation starts
+                        setTimeout(() => {
+                            centerContent.classList.add('is-visible');
+                        }, 700);
+                        
+                        // Stop observing after animation is triggered (run once)
+                        observer.unobserve(section);
+                    }
+                });
+            }, observerOptions);
+            
+            // Step 4: Start observing the section
+            observer.observe(section);
+            
+            // ========== DYNAMIC LOGO SWAPPING ANIMATION ==========
+            // MASSIVE COLLECTION OF VIBRANT BRAND ICONS - 40+ Icons!
+            const brandIcons = [
+                // Development & Programming
+                'fa-python', 'fa-react', 'fa-node-js', 'fa-vuejs', 'fa-angular',
+                'fa-square-js', 'fa-html5', 'fa-css3-alt', 'fa-sass', 'fa-bootstrap',
+                'fa-php', 'fa-laravel', 'fa-java', 'fa-rust', 'fa-golang',
+                
+                // Cloud & DevOps
+                'fa-docker', 'fa-aws', 'fa-microsoft', 'fa-linux', 'fa-jenkins',
+                'fa-git-alt', 'fa-github', 'fa-gitlab', 'fa-bitbucket',
+                
+                // Tools & Platforms
+                'fa-slack', 'fa-figma', 'fa-google', 'fa-chrome', 'fa-firefox',
+                'fa-apple', 'fa-android', 'fa-windows', 
+                
+                // Business & Productivity
+                'fa-wordpress', 'fa-shopify', 'fa-dropbox', 'fa-stripe',
+                'fa-npm', 'fa-unity', 'fa-reddit', 'fa-youtube',
+                'fa-twitter', 'fa-linkedin', 'fa-instagram'
+            ];
+
+            const logoIcons = document.querySelectorAll('.logo-cell:not(.empty) i');
+            
+            function getNewIcon(currentIcon) {
+                const currentClass = currentIcon.className.split(' ').find(cls => cls.startsWith('fa-') && cls !== 'fa-brands');
+                const currentIcons = Array.from(logoIcons).map(icon => 
+                    icon.className.split(' ').find(cls => cls.startsWith('fa-') && cls !== 'fa-brands')
+                );
+
+                const availableIcons = brandIcons.filter(icon => 
+                    !currentIcons.includes(icon) || icon === currentClass
+                );
+
+                if (availableIcons.length === 0) {
+                    return brandIcons[Math.floor(Math.random() * brandIcons.length)];
+                }
+
+                let newIcon;
+                do {
+                    newIcon = availableIcons[Math.floor(Math.random() * availableIcons.length)];
+                } while (newIcon === currentClass && availableIcons.length > 1);
+
+                return newIcon;
+            }
+
+            // Super Dynamic & Fast Logo Swapping Animation
+            setInterval(() => {
+                if (logoIcons.length === 0) return;
+                
+                // Randomly select 1-2 logos to swap simultaneously for more dynamism
+                const swapCount = Math.random() > 0.6 ? 2 : 1;
+                const indicesToSwap = [];
+                
+                for (let i = 0; i < swapCount; i++) {
+                    let randomIndex;
+                    do {
+                        randomIndex = Math.floor(Math.random() * logoIcons.length);
+                    } while (indicesToSwap.includes(randomIndex));
+                    indicesToSwap.push(randomIndex);
+                }
+                
+                indicesToSwap.forEach(index => {
+                    const randomIcon = logoIcons[index];
+                    randomIcon.classList.add('is-swapping');
+                    
+                    setTimeout(() => {
+                        const oldClass = randomIcon.className.split(' ').find(cls => cls.startsWith('fa-') && cls !== 'fa-brands');
+                        const newIconClass = getNewIcon(randomIcon);
+                        
+                        randomIcon.classList.remove(oldClass);
+                        randomIcon.classList.add(newIconClass);
+                        randomIcon.classList.remove('is-swapping');
+                    }, 400);
+                });
+            }, 1400); // Super fast - every 1.4 seconds!
+            
+            // ========== MAGNETIC HOVER EFFECT ==========
+            const logoCells = document.querySelectorAll('.logo-cell:not(.empty)');
+            
+            logoCells.forEach(cell => {
+                // Simple hover effect - no icon transform override
+                cell.addEventListener('mouseenter', () => {
+                    cell.style.transform = 'translateY(-12px) scale(1.08)';
+                    cell.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                });
+                
+                cell.addEventListener('mouseleave', () => {
+                    cell.style.transform = '';
+                });
+                
+                // Click effect - burst animation
+                cell.addEventListener('click', () => {
+                    cell.style.animation = 'clickBurst 0.4s ease';
+                    setTimeout(() => {
+                        cell.style.animation = '';
+                    }, 400);
+                });
+            });
+            
+            // Add click burst animation to CSS dynamically
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes clickBurst {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(0.9); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
 </body>
 </html>
