@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh, MeshStandardMaterial } from 'three';
+import * as THREE from 'three';
 import { RoundedBox, Text } from '@react-three/drei';
 import type { Service } from '../../data/services';
 
@@ -11,7 +12,6 @@ interface Card3DProps {
   position: [number, number, number];
   rotation: number;
   isActive: boolean;
-  scale: number;
 }
 
 export default function Card3D({
@@ -19,7 +19,6 @@ export default function Card3D({
   position,
   rotation,
   isActive,
-  scale,
 }: Card3DProps) {
   const meshRef = useRef<Mesh>(null);
   const materialRef = useRef<MeshStandardMaterial>(null);
@@ -29,7 +28,7 @@ export default function Card3D({
     if (meshRef.current) {
       const targetScale = isActive ? 1.2 : 0.9;
       meshRef.current.scale.lerp(
-        { x: targetScale, y: targetScale, z: targetScale } as any,
+        new THREE.Vector3(targetScale, targetScale, targetScale),
         0.1
       );
     }

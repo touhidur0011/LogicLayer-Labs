@@ -84,7 +84,6 @@ export default function SpiralScene({
           ]}
           rotation={cardPositions[index].rotation}
           isActive={index === activeCardIndex}
-          scale={index === activeCardIndex ? 1.2 : 0.9}
         />
       ))}
 

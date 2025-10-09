@@ -239,7 +239,7 @@ export default function HelixSection() {
         y: smoothMouseY.get() * 0.3 
       }
 
-      logos.forEach((logo, idx) => {
+      logos.forEach((logo) => {
         const isLeft = logo.position === 'left'
         const index = logo.index
         const pos = calculatePosition(index, 6, time, isLeft, mouseInfluence)

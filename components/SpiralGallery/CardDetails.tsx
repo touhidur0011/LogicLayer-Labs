@@ -5,10 +5,9 @@ import type { Service } from '../../data/services';
 
 interface CardDetailsProps {
   service: Service;
-  isActive: boolean;
 }
 
-export default function CardDetails({ service, isActive }: CardDetailsProps) {
+export default function CardDetails({ service }: CardDetailsProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
