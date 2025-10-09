@@ -396,6 +396,26 @@
         </div>
     </section>
 
+    <!-- 3D Spiral Gallery Section -->
+    <section class="spiral-gallery-section" id="spiral-section">
+        <!-- Noise texture overlay - Active Theory style -->
+        <div class="noise-overlay"></div>
+        
+        <!-- Floating particles background -->
+        <div class="particles-bg"></div>
+        
+        <!-- Ambient orbs -->
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        
+        <div class="spiral-header">
+            <h2>Explore Our Solutions in 3D</h2>
+            <p>Scroll to navigate through our interactive service gallery</p>
+        </div>
+        <div id="spiral-gallery-container" class="spiral-container"></div>
+    </section>
+
     <!-- Seamless Integrations Section -->
     <div class="integrations-wrapper" id="resources">
         <section class="integrations-section">
@@ -496,9 +516,6 @@
 
     <!-- Footer Section -->
     <div id="footer-placeholder"></div>
-
-    <script src="script.js"></script>
-    <script src="footer.js"></script>
     
     <!-- Integrations Section Script -->
     <script>
@@ -648,5 +665,10 @@
             document.head.appendChild(style);
         });
     </script>
+
+    <script src="script.js"></script>
+    <script src="footer.js"></script>
+    <script type="module" src="js/spiral-gallery-init.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Interactive 3D Spiral Gallery with Custom Development, Cloud & DevOps, and AI & Data Solutions">
+    <title>Spiral Gallery - LogicLayer Labs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #spiral-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            will-change: transform;
+            contain: layout style paint;
+        }
+
+        /* Loading Overlay */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #000 0%, #0a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 24px;
+            font-size: 16px;
+            color: #888;
+            letter-spacing: 2px;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 16px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #6366f1);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* No WebGL Fallback */
+        #no-webgl {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #no-webgl h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #f97316;
+        }
+
+        #no-webgl p {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* Card Detail Overlay */
+        #card-detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        #card-detail-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detail-content {
+            max-width: 800px;
+            width: 90%;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.1));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        #card-detail-overlay.active .detail-content {
+            transform: scale(1);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .detail-icon {
+            font-size: 48px;
+        }
+
+        .detail-title {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .detail-category {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .detail-items {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .detail-items li {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .detail-items li:last-child {
+            border-bottom: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Instructions */
+        .instructions {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .instructions.hidden {
+            opacity: 0;
+        }
+
+        .instructions kbd {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 4px;
+            font-family: monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .detail-content {
+                padding: 32px 24px;
+            }
+
+            .detail-title {
+                font-size: 24px;
+            }
+
+            .detail-icon {
+                font-size: 36px;
+            }
+
+            .instructions {
+                font-size: 12px;
+                bottom: 16px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas -->
+    <canvas id="spiral-canvas" aria-label="Interactive 3D spiral gallery"></canvas>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">LOADING EXPERIENCE</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- No WebGL Fallback -->
+    <div id="no-webgl">
+        <h2>WebGL Not Supported</h2>
+        <p>Your browser doesn't support WebGL. Please try using a modern browser like Chrome, Firefox, or Edge.</p>
+    </div>
+
+    <!-- Card Detail Overlay -->
+    <div id="card-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+        <button class="close-btn" aria-label="Close detail view" id="close-detail">×</button>
+        <div class="detail-content">
+            <div class="detail-header">
+                <span class="detail-icon" id="detail-icon"></span>
+                <div>
+                    <h2 class="detail-title" id="detail-title"></h2>
+                    <span class="detail-category" id="detail-category"></span>
+                </div>
+            </div>
+            <ul class="detail-items" id="detail-items"></ul>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions" id="instructions" role="region" aria-label="Controls">
+        <p>
+            <kbd>Scroll</kbd> to navigate • 
+            <kbd>Hover</kbd> to preview • 
+            <kbd>Click</kbd> to explore • 
+            <kbd>ESC</kbd> to close
+        </p>
+    </div>
+
+    <!-- Screen Reader Announcements -->
+    <div class="sr-only" role="status" aria-live="polite" id="sr-announcements"></div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

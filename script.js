@@ -5,6 +5,10 @@ window.addEventListener('load', () => {
         loader.classList.add('hidden');
         document.body.style.overflow = 'auto';
         initParticles();
+        // Initialize spiral particles after DOM is ready
+        if (typeof initSpiralParticles === 'function') {
+            initSpiralParticles();
+        }
     }, 2000);
 });
 
@@ -739,3 +743,94 @@ if (servicesCta) {
     servicesCta.style.transform = 'translateY(30px)';
     servicesCta.style.transition = 'all 0.8s ease';
 }
+
+// ========== STAR WARS: STARFIELD EFFECT ==========
+function initSpiralParticles() {
+    const particlesBg = document.querySelector('.particles-bg');
+    if (!particlesBg) return;
+    
+    // Create 200 stars for dense starfield
+    const starCount = 200;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        const size = Math.random() * 2.5 + 0.5; // 0.5-3px stars
+        
+        // Star colors - white, blue-white, yellow-white
+        const starColors = [
+            'rgba(255, 255, 255, 0.9)',
+            'rgba(200, 220, 255, 0.8)',
+            'rgba(255, 250, 240, 0.85)',
+            'rgba(180, 200, 255, 0.75)'
+        ];
+        const color = starColors[Math.floor(Math.random() * starColors.length)];
+        
+        star.style.position = 'absolute';
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.background = color;
+        star.style.borderRadius = '50%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+        
+        // Random twinkling animation
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
+        
+        star.style.animation = `starTwinkle ${duration}s ease-in-out ${delay}s infinite`;
+        
+        particlesBg.appendChild(star);
+    }
+    
+    // Add some shooting stars
+    for (let i = 0; i < 5; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.style.position = 'absolute';
+        shootingStar.style.width = '2px';
+        shootingStar.style.height = '2px';
+        shootingStar.style.background = 'rgba(255, 255, 255, 0.9)';
+        shootingStar.style.borderRadius = '50%';
+        shootingStar.style.left = Math.random() * 100 + '%';
+        shootingStar.style.top = Math.random() * 50 + '%';
+        shootingStar.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(200, 220, 255, 0.5)';
+        
+        const shootDuration = Math.random() * 2 + 1;
+        const shootDelay = Math.random() * 10;
+        
+        shootingStar.style.animation = `shootingStar ${shootDuration}s linear ${shootDelay}s infinite`;
+        
+        particlesBg.appendChild(shootingStar);
+    }
+}
+
+// Add star animation keyframes
+const particleStyle = document.createElement('style');
+particleStyle.textContent = `
+    @keyframes starTwinkle {
+        0%, 100% { 
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% { 
+            opacity: 1;
+            transform: scale(1.5);
+        }
+    }
+    
+    @keyframes shootingStar {
+        0% {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+        70% {
+            opacity: 0.8;
+        }
+        100% {
+            transform: translate(-300px, 300px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(particleStyle);
+
